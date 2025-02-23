@@ -2,20 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python Web App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Supabase + Flask App</title>
 </head>
 <body>
-    <h1>Welcome to My Python Web App!</h1>
+    <h1>My Items</h1>
+
+    <!-- Display the list of items -->
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.name }} - {{ item.description }}
+                <a href="{{ url_for('delete_item', item_id=item.id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Form to add a new item -->
+    <h2>Add New Item</h2>
     <form action="/add-item" method="post">
-        <label for="name">Item Name:</label>
+        <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br>
         <label for="description">Description:</label>
         <input type="text" id="description" name="description"><br>
         <button type="submit">Add Item</button>
     </form>
-    <p><a href="/api-data">View API Data</a></p>
-    <p><a href="/predict">Make a Prediction</a></p>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
